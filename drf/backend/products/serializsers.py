@@ -9,5 +9,4 @@ class ProductSerializer(serializers.ModelSerializer):
       'title',
       'content',
       'price',
-      'get_discount'
     ]
