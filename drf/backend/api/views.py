@@ -5,12 +5,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from products.models import Product
+from products.serializsers import ProductSerializer
 # Create your views here.
 
-@api_view(['GET']) # 定義允許的 API request
+@api_view(['POST']) # 定義允許的 API request
 def api_home(request,*args,**kwargs):
-  model_data = Product.objects.all().order_by("?").first()
-  data = {}
-  if model_data:
-    data=model_to_dict(model_data)
-  return Response(data)
+  serializer = ProductSerializer(data = request.data)
+  if serializer.is_valid():
+    instance = serializer.save()
+    print(instance)
+    return Response(serializer.data)
